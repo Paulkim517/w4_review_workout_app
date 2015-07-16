@@ -1,11 +1,12 @@
 $(function() {
 
+  // compile underscore template
+  var logTemplate = _.template($('#log-template').html());
+
   var testLogs = [
     {type: 'cardio', calories: 300},
     {type: 'strength training', calories: 300}
   ];
-
-  var logTemplate = _.template($('#log-template').html());
 
   _.each(testLogs, function(log, index) {
     console.log(log);
