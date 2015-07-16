@@ -1,0 +1,26 @@
+{
+  "name": "do_you_even_lift",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sf-wdi-19-20/w4_review_workout_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sf-wdi-19-20/w4_review_workout_app/issues"
+  },
+  "homepage": "https://github.com/sf-wdi-19-20/w4_review_workout_app",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "ejs": "^2.3.3",
+    "express": "^4.13.1",
+    "hbs": "^3.1.0",
+    "mongoose": "^4.0.7"
+  }
+}
