@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- bootstrap css -->
+  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <link type="text/css" rel="stylesheet" href="../public/styles/style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <h2>New Workout</h2>
+        <form id="new-workout">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Workout Type" id="type" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Calories Burned" id="calories">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="New Workout!" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h2>Workout List</h2>
+        <ul class="list-group" id="log-list">
+          <!-- data from log template goes here! -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- jquery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- underscore -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <script type="text/javascript" src="../public/scripts/script.js"></script>
+
+  <script type="text/template" id="log-template">
+  <li class="list-group-item"><%= type %> - <%= calories %></li>
+  </script>
+</body>
+</html>
