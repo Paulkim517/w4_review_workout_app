@@ -13,31 +13,54 @@
   <title>Do You Even Lift?</title>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Do You Even Lift?</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="javascript:void(0)">Sign Up</a></li>
+          <li><a href="javascript:void(0)">Log In</a></li>
+          <li><a href="javascript:void(0)">Log Out</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+  </nav>
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
-        <h2>New Workout</h2>
-
-        <!-- form to create new workout log -->
-        <form id="new-log">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Workout Type" id="type" autofocus>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Calories Burned" id="calories">
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary">
-          </div>
-        </form>
+      <div class="col-md-3 col-sm-4">
+        <div class="well">
+          <p>New Workout</p>
+          <!-- form to create new workout log -->
+          <form id="new-log">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Workout Type" id="type" autofocus>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Calories Burned" id="calories">
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Save" class="btn btn-primary btn-block">
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="col-md-6">
-        <h2>Workout List</h2>
-
-        <!-- list of workout logs -->
-        <ul class="list-group" id="log-list">
-          <!-- data from log-template goes here -->
-        </ul>
+      <div class="col-md-6 col-sm-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">All Workouts</div>
+          <!-- list of workout logs -->
+          <ul class="list-group" id="log-list">
+            <!-- data from log-template goes here -->
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -57,7 +80,7 @@
   <!-- underscore template for workout logs -->
   <script type="text/template" id="log-template">
     <li class="list-group-item">
-      <span class="label label-default"><%= type %></span>
+      <span class="label label-success"><%= type %></span>
       &nbsp;
       <%= calories %> calories
     </li>
