@@ -27,13 +27,70 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="javascript:void(0)">Sign Up</a></li>
-          <li><a href="javascript:void(0)">Log In</a></li>
+          <li><a href="javascript:void(0)" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+          <li><a href="javascript:void(0)" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+          <li><a href="/profile">Profile</a></li>
           <li><a href="javascript:void(0)">Log Out</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
   </nav>
+
+  <!-- signup modal -->
+  <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+        </div>
+        <form method="post" action="/users">
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="email" name="user[email]" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="text" name="user[avatar]" class="form-control" placeholder="Avatar (Image URL)">
+            </div>
+            <div class="form-group">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" value="Sign Up" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- login modal -->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Log In</h4>
+        </div>
+        <form method="post" action="/login">
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="email" name="user[email]" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" value="Log In" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <div class="row">
       <div class="col-md-3 col-sm-4">
@@ -42,7 +99,12 @@
           <!-- form to create new workout log -->
           <form id="new-log">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Workout Type" id="type" autofocus>
+              <select class="form-control" id="type">
+                <option disabled selected>Workout Type</option>
+                <option>Cardio</option>
+                <option>Strength Training</option>
+                <option>Pilates</option>
+              </select>
             </div>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Calories Burned" id="calories">

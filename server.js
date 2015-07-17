@@ -52,6 +52,34 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
 });
 
+// USER ROUTES
+
+// create new user with secure password
+app.post('/users', function (req, res) {
+  var newUser = req.body.user;
+  User.createSecure(newUser, function (err, user) {
+    // log in user immediately when created
+    req.login(user);
+    res.redirect('/profile');
+  });
+});
+
+// authenticate user and set session
+app.post('/login', function (req, res) {
+  var userData = req.body.user;
+  User.authenticate(userData.email, userData.password, function (err, user) {
+    req.login(user);
+    res.redirect('/profile');
+  });
+});
+
+// profile page
+app.get('/profile', function (req, res) {
+  req.currentUser(function (err, user) {
+    res.sendFile(__dirname + '/public/views/profile.html');
+  });
+});
+
 // API ROUTES
 
 // show all logs
@@ -72,40 +100,6 @@ app.post('/api/logs', function (req, res) {
   // save new log in db
   newLog.save(function (err, savedLog) {
     res.json(savedLog);
-  });
-});
-
-// signup page
-app.get('/signup', function (req, res) {
-  res.sendFile(__dirname + '/public/views/signup.html');
-});
-
-// create new user with secure password
-app.post('/users', function (req, res) {
-  var newUser = req.body.user;
-  User.createSecure(newUser.email, newUser.password, function (err, user) {
-    res.redirect('/login');
-  });
-});
-
-// login page
-app.get('/login', function (req, res) {
-  res.sendFile(__dirname + '/public/views/login.html');
-});
-
-// authenticate user and set session
-app.post('/login', function (req, res) {
-  var userData = req.body.user;
-  User.authenticate(userData.email, userData.password, function (err, user) {
-    req.login(user);
-    res.redirect('/profile');
-  });
-});
-
-// profile page
-app.get('/profile', function (req, res) {
-  req.currentUser(function (err, user) {
-    res.sendFile(__dirname + '/public/views/profile.html');
   });
 });
 

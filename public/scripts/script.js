@@ -60,7 +60,6 @@ $(function() {
 
         // reset the form
         $(this)[0].reset();
-        $('#type').focus();
       });
     }
   };

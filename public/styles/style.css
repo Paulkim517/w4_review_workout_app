@@ -1,14 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
 
+/* reset */
+
 body {
   font-family: Lato, Helvetica Neue, Helvetica, Arial;
   font-size: 16px;
 }
 
+/* bootstrap overrides */
+
 .navbar {
   margin-bottom: 40px;
 }
-
 .well {
   padding: 10px 15px;
 }
