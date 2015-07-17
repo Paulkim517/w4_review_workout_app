@@ -1,3 +1,4 @@
+// require express and other modules
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
@@ -6,8 +7,10 @@ var express = require('express'),
     User = require('./models/user'),
     session = require('express-session');
 
+// connect to mongodb
 mongoose.connect('mongodb://localhost/do_you_even_lift');
 
+// middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
@@ -42,59 +45,71 @@ app.use('/', function (req, res, next) {
   next();
 });
 
+// STATIC ROUTES
+
+// root route
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
 });
 
+// API ROUTES
+
+// show all logs
 app.get('/api/logs', function (req, res) {
   Log.find(function (err, logs) {
     res.json(logs);
   });
 });
 
+// create new log
+app.post('/api/logs', function (req, res) {
+  // create new instance of Log
+  var newLog = new Log({
+    type: req.body.type,
+    calories: req.body.calories
+  });
+
+  // save new log in db
+  newLog.save(function (err, savedLog) {
+    res.json(savedLog);
+  });
+});
+
+// signup page
 app.get('/signup', function (req, res) {
   res.sendFile(__dirname + '/public/views/signup.html');
 });
 
+// create new user with secure password
 app.post('/users', function (req, res) {
   var newUser = req.body.user;
-
   User.createSecure(newUser.email, newUser.password, function (err, user) {
     res.redirect('/login');
   });
 });
 
+// login page
 app.get('/login', function (req, res) {
   res.sendFile(__dirname + '/public/views/login.html');
 });
 
+// authenticate user and set session
 app.post('/login', function (req, res) {
   var userData = req.body.user;
-
   User.authenticate(userData.email, userData.password, function (err, user) {
     req.login(user);
     res.redirect('/profile');
   });
 });
 
+// profile page
 app.get('/profile', function (req, res) {
   req.currentUser(function (err, user) {
-    res.render('profile', {currentUser: user});
+    res.sendFile(__dirname + '/public/views/profile.html');
   });
 });
 
-app.post('/api/logs', function (req, res) {
-  var newLog = new Log({
-    type: req.body.type,
-    calories: req.body.calories
-  });
-
-  // save new phrase in db
-  newLog.save(function (err, savedLog) {
-    res.json(savedLog);
-  });
-});
-
+// listen on port 3000
 app.listen(3000, function () {
   console.log('server started on localhost:3000');
 });
