@@ -47,12 +47,26 @@ app.use('/', function (req, res, next) {
 
 // STATIC ROUTES
 
-// root route
+// homepage
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
 });
 
-// USER ROUTES
+// profile page
+app.get('/profile', function (req, res) {
+  // check for current (logged-in) user
+  req.currentUser(function (err, user) {
+    // show profile if logged-in user
+    if (user) {
+      res.sendFile(__dirname + '/public/views/profile.html');
+    // redirect if no user logged in
+    } else {
+      res.redirect('/');
+    }
+  });
+});
+
+// AUTH ROUTES (SIGN UP, LOG IN, LOG OUT)
 
 // create new user with secure password
 app.post('/users', function (req, res) {
@@ -73,14 +87,21 @@ app.post('/login', function (req, res) {
   });
 });
 
-// profile page
-app.get('/profile', function (req, res) {
-  req.currentUser(function (err, user) {
-    res.sendFile(__dirname + '/public/views/profile.html');
-  });
+// log out user (destroy session)
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 // API ROUTES
+
+// show current user
+app.get('/api/users/current', function (req, res) {
+  // check for current (logged-in) user
+  req.currentUser(function (err, user) {
+    res.json(user);
+  });
+});
 
 // show all logs
 app.get('/api/logs', function (req, res) {

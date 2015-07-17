@@ -13,8 +13,117 @@
   <title>Do You Even Lift?</title>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Do You Even Lift?</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" id="nav-links">
+          <!-- data from nav-template goes here -->
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+  </nav>
+
+  <!-- signup modal -->
+  <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+        </div>
+        <form method="post" action="/users">
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="text" name="user[firstName]" class="form-control" placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="user[lastName]" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="user[avatar]" class="form-control" placeholder="Avatar (Image URL)">
+            </div>
+            <div class="form-group">
+              <input type="email" name="user[email]" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" value="Sign Up" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- login modal -->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Log In</h4>
+        </div>
+        <form method="post" action="/login">
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="email" name="user[email]" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" value="Log In" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-    <h1>User Profile Page</h1>
+    <div class="row">
+      <div class="col-md-3 col-sm-4">
+        <div class="well">
+          <p>New Workout</p>
+          <!-- form to create new workout log -->
+          <form id="new-log">
+            <div class="form-group">
+              <select class="form-control" id="type">
+                <option disabled selected>Workout Type</option>
+                <option>Cardio</option>
+                <option>Strength Training</option>
+                <option>Pilates</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Calories Burned" id="calories">
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Save" class="btn btn-primary btn-block">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-8">
+        <div class="panel panel-default" id="show-user">
+          <!-- data from user-template goes here -->
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- jquery -->
@@ -22,5 +131,36 @@
 
   <!-- bootstrap js -->
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- underscore -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <!-- custom scripts -->
+  <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/users.js"></script>
+
+  <!-- underscore template for nav links -->
+  <script type="text/template" id="nav-template">
+    <% if (currentUser) { %>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Log Out</a></li>
+    <% } else { %>
+      <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+    <% } %>
+  </script>
+
+  <!-- underscore template for user -->
+  <script type="text/template" id="user-template">
+    <div class="panel-heading">
+      <img src="<%= currentUser.avatar %>" class="img-circle" width="50">
+      &nbsp;
+      <strong>Welcome, <%= currentUser.firstName %>!</strong>
+    </div>
+    <!-- list of workout logs -->
+    <ul class="list-group" id="user-log-list">
+      <!-- data from user-log-template goes here -->
+    </ul>
+  </script>
 </body>
 </html>

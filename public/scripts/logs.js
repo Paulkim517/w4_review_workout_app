@@ -1,5 +1,6 @@
 $(function() {
 
+  // `logsController` holds log functionality
   var logsController = {
     
     // compile underscore template
@@ -7,7 +8,7 @@ $(function() {
 
     // get all logs
     all: function() {
-      // AJAX call to server to GET /logs
+      // AJAX call to server to GET /api/logs
       $.get('/api/logs', function(allLogs) {
         console.log(allLogs);
         
@@ -30,7 +31,7 @@ $(function() {
       // define object with our log data
       var logData = {type: typeData, calories: caloriesData};
       
-      // AJAX call to server to POST /logs
+      // AJAX call to server to POST /api/logs
       $.post('/api/logs', logData, function(newLog) {
         console.log(newLog);
         

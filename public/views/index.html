@@ -26,11 +26,8 @@
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="javascript:void(0)" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
-          <li><a href="javascript:void(0)" data-toggle="modal" data-target="#login-modal">Log In</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="javascript:void(0)">Log Out</a></li>
+        <ul class="nav navbar-nav navbar-right" id="nav-links">
+          <!-- data from nav-template goes here -->
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
@@ -47,10 +44,16 @@
         <form method="post" action="/users">
           <div class="modal-body">
             <div class="form-group">
-              <input type="email" name="user[email]" class="form-control" placeholder="Email">
+              <input type="text" name="user[firstName]" class="form-control" placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="user[lastName]" class="form-control" placeholder="Last Name">
             </div>
             <div class="form-group">
               <input type="text" name="user[avatar]" class="form-control" placeholder="Avatar (Image URL)">
+            </div>
+            <div class="form-group">
+              <input type="email" name="user[email]" class="form-control" placeholder="Email">
             </div>
             <div class="form-group">
               <input type="password" name="user[password]" class="form-control" placeholder="Password">
@@ -136,8 +139,20 @@
   <!-- underscore -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-  <!-- custom script -->
-  <script type="text/javascript" src="scripts/script.js"></script>
+  <!-- custom scripts -->
+  <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/logs.js"></script>
+
+  <!-- underscore template for nav links -->
+  <script type="text/template" id="nav-template">
+    <% if (currentUser) { %>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Log Out</a></li>
+    <% } else { %>
+      <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+    <% } %>
+  </script>
 
   <!-- underscore template for workout logs -->
   <script type="text/template" id="log-template">

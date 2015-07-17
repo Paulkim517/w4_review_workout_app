@@ -6,8 +6,10 @@ var mongoose = require('mongoose'),
 
 // define user schema
 var UserSchema = new Schema({
-  email: String,
+  firstName: String,
+  lastName: String,
   avatar: String,
+  email: String,
   passwordDigest: String
 });
 
@@ -24,8 +26,10 @@ UserSchema.statics.createSecure = function (userData, callback) {
 
       // create the new user (save to db) with hashed password
       that.create({
-        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
         avatar: userData.avatar,
+        email: userData.email,
         passwordDigest: hash
       }, callback);
     });
