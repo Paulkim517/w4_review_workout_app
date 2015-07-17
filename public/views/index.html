@@ -10,13 +10,15 @@
   <!-- custom styles -->
   <link type="text/css" rel="stylesheet" href="styles/style.css">
 
-  <title>Do you even lift?</title>
+  <title>Do You Even Lift?</title>
 </head>
 <body>
   <div class="container">
     <div class="row">
       <div class="col-md-3">
         <h2>New Workout</h2>
+
+        <!-- form to create new workout log -->
         <form id="new-log">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Workout Type" id="type" autofocus>
@@ -25,12 +27,14 @@
             <input type="text" class="form-control" placeholder="Calories Burned" id="calories">
           </div>
           <div class="form-group">
-            <input type="submit" value="Save!" class="btn btn-primary">
+            <input type="submit" value="Save" class="btn btn-primary">
           </div>
         </form>
       </div>
       <div class="col-md-6">
         <h2>Workout List</h2>
+
+        <!-- list of workout logs -->
         <ul class="list-group" id="log-list">
           <!-- data from log-template goes here -->
         </ul>
@@ -51,7 +55,11 @@
 
   <!-- underscore template for workout logs -->
   <script type="text/template" id="log-template">
-    <li class="list-group-item"><%= type %> - <%= calories %></li>
+    <li class="list-group-item">
+      <span class="label label-default"><%= type %></span>
+      &nbsp;
+      <%= calories %> calories
+    </li>
   </script>
 </body>
 </html>
