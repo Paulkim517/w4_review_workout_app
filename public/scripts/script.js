@@ -1,38 +1,70 @@
 $(function() {
 
-  // compile underscore template
-  var logTemplate = _.template($('#log-template').html());
-
-  $.get('/api/logs', function(allLogs) {
-    console.log(allLogs);
+  var logsController = {
     
-    _.each(allLogs, function(log, index) {
-      console.log(log);
+    // compile underscore template
+    template: _.template($('#log-template').html()),
+
+    // get all logs
+    all: function() {
+      // AJAX call to server to GET /logs
+      $.get('/api/logs', function(allLogs) {
+        console.log(allLogs);
+        
+        // iterate through all logs
+        _.each(allLogs, function(log, index) {
+          console.log(log);
+          
+          // pass log through underscore template
+          var $logHtml = $(logsController.template(log));
+          console.log($logHtml);
+          
+          // append log HTML to page
+          $('#log-list').append($logHtml);
+        });
+      });
+    },
+
+    // create new log
+    create: function(typeData, caloriesData) {
+      // define object with our log data
+      var logData = {type: typeData, calories: caloriesData};
       
-      var $logHtml = $(logTemplate(log));
-      console.log($logHtml);
-      $('#log-list').append($logHtml);
-    });
-  });
+      // AJAX call to server to POST /logs
+      $.post('/api/logs', logData, function(newLog) {
+        console.log(newLog);
+        
+        // pass log through underscore template
+        var $logHtml = $(logsController.template(newLog));
+        console.log($logHtml);
 
-  $('#new-workout').on('submit', function(event) {
-    event.preventDefault();
-    console.log('submitting form!');
-    
-    var logType = $('#type').val();
-    var logCalories = $('#calories').val();
-    var logData = {type: logType, calories: logCalories};
-    console.log(logData);
-    
-    $.post('/api/logs', logData, function(newLog) {
-      console.log(newLog);
-      var $logHtml = $(logTemplate(newLog));
-      console.log($logHtml);
-      $('#log-list').append($logHtml);
-    });
+        // append log HTML to page
+        $('#log-list').append($logHtml);
+      });
+    },
 
-    $(this)[0].reset();
-    $('#type').focus();
-  });
+    setupView: function() {
+      // get all existing logs and render to page
+      logsController.all();
+
+      // add submit event on new log form
+      $('#new-log').on('submit', function(event) {
+        event.preventDefault();
+        
+        // grab log type and calories from form
+        var logType = $('#type').val();
+        var logCalories = $('#calories').val();
+
+        // create new log
+        logsController.create(logType, logCalories);
+
+        // reset the form
+        $(this)[0].reset();
+        $('#type').focus();
+      });
+    }
+  };
+
+  logsController.setupView();
 
 });
