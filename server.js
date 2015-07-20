@@ -107,6 +107,28 @@ app.get('/api/users/current', function (req, res) {
   });
 });
 
+// create new log for current user
+app.post('/api/users/current/logs', function (req, res) {
+  // create new log with form data (`req.body`)
+  var newLog = new Log({
+    type: req.body.type,
+    calories: req.body.calories
+  });
+
+  // save new log
+  newLog.save();
+
+  // find current user
+  req.currentUser(function (err, user) {
+    // embed new log in user's logs
+    user.logs.push(newLog);
+    // save user (and new log)
+    user.save();
+    // respond with new log
+    res.json(newLog);
+  });
+});
+
 // show all logs
 app.get('/api/logs', function (req, res) {
   Log.find(function (err, logs) {
@@ -116,13 +138,13 @@ app.get('/api/logs', function (req, res) {
 
 // create new log
 app.post('/api/logs', function (req, res) {
-  // create new instance of Log
+  // create new log with form data (`req.body`)
   var newLog = new Log({
     type: req.body.type,
     calories: req.body.calories
   });
 
-  // save new log in db
+  // save new log
   newLog.save(function (err, savedLog) {
     res.json(savedLog);
   });

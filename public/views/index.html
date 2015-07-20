@@ -26,8 +26,20 @@
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Workouts</a></li>
+        </ul>
         <ul class="nav navbar-nav navbar-right" id="nav-links">
-          <!-- data from nav-template goes here -->
+          <!-- underscore template for nav links -->
+          <script type="text/template" id="nav-template">
+            <% if (currentUser) { %>
+              <li><a href="/profile">Profile</a></li>
+              <li><a href="/logout">Log Out</a></li>
+            <% } else { %>
+              <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+            <% } %>
+          </script>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
@@ -123,7 +135,14 @@
           <div class="panel-heading">All Workouts</div>
           <!-- list of workout logs -->
           <ul class="list-group" id="log-list">
-            <!-- data from log-template goes here -->
+            <!-- underscore template for workout logs -->
+            <script type="text/template" id="log-template">
+              <li class="list-group-item">
+                <span class="label label-success"><%= type %></span>
+                &nbsp;
+                <%= calories %> calories
+              </li>
+            </script>
           </ul>
         </div>
       </div>
@@ -143,24 +162,5 @@
   <script type="text/javascript" src="scripts/main.js"></script>
   <script type="text/javascript" src="scripts/logs.js"></script>
 
-  <!-- underscore template for nav links -->
-  <script type="text/template" id="nav-template">
-    <% if (currentUser) { %>
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/logout">Log Out</a></li>
-    <% } else { %>
-      <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
-      <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
-    <% } %>
-  </script>
-
-  <!-- underscore template for workout logs -->
-  <script type="text/template" id="log-template">
-    <li class="list-group-item">
-      <span class="label label-success"><%= type %></span>
-      &nbsp;
-      <%= calories %> calories
-    </li>
-  </script>
 </body>
 </html>

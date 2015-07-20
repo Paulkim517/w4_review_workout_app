@@ -3,7 +3,7 @@ $(function() {
   // `mainController` holds shared site functionality
   var mainController = {
 
-    // compile underscore template
+    // compile underscore template for nav links
     navTemplate: _.template($('#nav-template').html()),
 
     // get current (logged-in) user
@@ -12,10 +12,10 @@ $(function() {
       $.get('/api/users/current', function(user) {
         console.log(user);
 
-        // pass user through underscore template
+        // pass current user through template for nav links
         $navHtml = $(mainController.navTemplate({currentUser: user}));
 
-        // append user HTML to page
+        // append nav links HTML to page
         $('#nav-links').append($navHtml);
       });
     }

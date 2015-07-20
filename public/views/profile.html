@@ -26,8 +26,20 @@
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Workouts</a></li>
+        </ul>
         <ul class="nav navbar-nav navbar-right" id="nav-links">
-          <!-- data from nav-template goes here -->
+          <!-- underscore template for nav links -->
+          <script type="text/template" id="nav-template">
+            <% if (currentUser) { %>
+              <li><a href="/profile">Profile</a></li>
+              <li><a href="/logout">Log Out</a></li>
+            <% } else { %>
+              <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+            <% } %>
+          </script>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
@@ -120,7 +132,27 @@
       </div>
       <div class="col-md-6 col-sm-8">
         <div class="panel panel-default" id="show-user">
-          <!-- data from user-template goes here -->
+          <!-- underscore template for user profile -->
+          <script type="text/template" id="user-template">
+            <div class="panel-heading">
+              <img src="<%= currentUser.avatar %>" class="img-circle" width="50">
+              &nbsp;
+              <strong>Welcome, <%= currentUser.firstName %>!</strong>
+            </div>
+            <!-- list of workout logs -->
+            <ul class="list-group" id="user-log-list">
+              <!-- data from user-log-template goes here -->
+            </ul>
+          </script>
+
+          <!-- underscore template for user log -->
+          <script type="text-template" id="user-log-template">
+            <li class="list-group-item">
+              <span class="label label-success"><%= type %></span>
+              &nbsp;
+              <%= calories %> calories
+            </li>
+          </script>
         </div>
       </div>
     </div>
@@ -137,30 +169,7 @@
 
   <!-- custom scripts -->
   <script type="text/javascript" src="scripts/main.js"></script>
-  <script type="text/javascript" src="scripts/users.js"></script>
+  <script type="text/javascript" src="scripts/profile.js"></script>
 
-  <!-- underscore template for nav links -->
-  <script type="text/template" id="nav-template">
-    <% if (currentUser) { %>
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/logout">Log Out</a></li>
-    <% } else { %>
-      <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
-      <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
-    <% } %>
-  </script>
-
-  <!-- underscore template for user -->
-  <script type="text/template" id="user-template">
-    <div class="panel-heading">
-      <img src="<%= currentUser.avatar %>" class="img-circle" width="50">
-      &nbsp;
-      <strong>Welcome, <%= currentUser.firstName %>!</strong>
-    </div>
-    <!-- list of workout logs -->
-    <ul class="list-group" id="user-log-list">
-      <!-- data from user-log-template goes here -->
-    </ul>
-  </script>
 </body>
 </html>
