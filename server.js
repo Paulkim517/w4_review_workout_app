@@ -8,7 +8,11 @@ var express = require('express'),
     session = require('express-session');
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/do_you_even_lift');
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/do_you_even_lift'
+);
 
 // middleware
 app.use(bodyParser.urlencoded({extended: true}));
@@ -125,6 +129,6 @@ app.post('/api/logs', function (req, res) {
 });
 
 // listen on port 3000
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log('server started on localhost:3000');
 });
